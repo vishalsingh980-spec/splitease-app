@@ -1,6 +1,4 @@
 {
-  "version": 2,
-  "outputDirectory": "client/build",
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/index.ts" },
     { "source": "/(.*)", "destination": "/index.html" }
