@@ -88,11 +88,10 @@ router.get('/:id/members', authenticate, async (req, res) => {
       .eq('group_id', req.params.id);
     if (error) throw error;
 
-    const members = data.map(item => ({
-      id: item.users.id,
-      name: item.users.name,
-      email: item.users.email
-    }));
+    const members = data.map(item => {
+      const user = Array.isArray(item.users) ? item.users[0] : item.users as any;
+      return { id: user.id, name: user.name, email: user.email };
+    });
 
     res.json(members);
   } catch (error: any) {
