@@ -12,7 +12,14 @@ import { authenticate } from './middleware/auth';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    /\.vercel\.app$/,
+    process.env.FRONTEND_URL || ''
+  ].filter(Boolean),
+  credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);

@@ -25,6 +25,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Point axios at the backend — use env var in production, proxy in local dev
+    if (process.env.REACT_APP_API_URL) {
+      axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+    }
+
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
     if (savedToken && savedUser) {
